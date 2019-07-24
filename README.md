@@ -54,7 +54,7 @@ Placeholder  | placeholder for search box| [placeHolder]=" place holder values"
 httpOptions  | pass as input for configuration | [httpOptions] ="yourOptions"
 httpOptions.size  | maximum size of search return (optional) | httpOptions.size = '20'
 httpOptions.contextField | field to be shown on search field on mousedown event  |  httpOptions.contextField = 'index field to be shown'
-httpOptions.formatString  | format for the output (optional)  | httpOptions.formatString = 'firstindex | secondIndex'
+httpOptions.formatString  | format for the output | httpOptions.formatString = 'firstindex | secondIndex'
 httpOptions.theme | Custom color for the search output (optional) | httpOptions.theme = 'your color'
 httpOptions.fontSize  | Font size of search result (optional)  | httpOptions.fontSize = '20px'
 httpOptions.width  | Width  of search (optional) | httpOptions.width = '100%'
@@ -62,7 +62,6 @@ httpOptions.defaultvalue  | A default value to be shown on search field (optiona
 
 ## Other functionalities
 
-if no 'formatString' is provided then the  default behaviour will be 'firstIndex | secondIndex| thirdIndex | ...'
 
 To clear search field any time, use "clearField". The variable is passed in elasticsearch component intialization. Syntax is, this.clearField = new String('true');
 
