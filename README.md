@@ -35,7 +35,6 @@ export class AppModule { }
 
 ##sample Object
 
-    httpOptions.fontSize = '1rem';
     httpOptions.contextField = 'fullName';
     httpOptions.formatString = 'fullName';
     httpOptions.path = 'findPersons';
@@ -53,6 +52,7 @@ Name  | Description | Example |
 Placeholder  | placeholder for search box| [placeHolder]=" place holder values" 
 httpOptions  | pass as input for configuration | [httpOptions] ="yourOptions"
 httpOptions.size  | maximum size of search return (optional) | httpOptions.size = '20'
+httpOptions.path | select the api path | httpOptions.path = 'defaultpath'
 httpOptions.contextField | field to be shown on search field on mousedown event  |  httpOptions.contextField = 'index field to be shown'
 httpOptions.formatString  | format for the output | httpOptions.formatString = 'firstindex | secondIndex'
 httpOptions.theme | Custom color for the search output (optional) | httpOptions.theme = 'your color'
