@@ -31,7 +31,7 @@ export class AppModule { }
 
 //** in your html file"
  <app-endpoint-search [httpOptions]="httpSearchOptions" [clearField]="clearField"[placeHolder]="'Search Principal Investigator'"
- (selectedHttpResult)="selectedPerson($event)"></app-endpoint-search>
+ (selectedHttpResult)="selectedPerson($event)" (emptyCompleterResult)="emptyResult($event)"></app-endpoint-search>
 
 ##sample Object
 
@@ -48,7 +48,8 @@ export class AppModule { }
 ## Parameters
 Name  | Description | Example | 
 ------------- | ------------- | -------------
-(selectedResult)  | On mouse click function and close button event | (selectedResult)="yourFunction($event)"
+(selectedHttpResult)  | On mouse click function and close button event | (selectedResult)="yourFunction($event)"
+(emptyHttpResult)  | returns search string on change event of no result condition | (emptyCompleterResult)="yourFunction($event)" 
 Placeholder  | placeholder for search box| [placeHolder]=" place holder values" 
 httpOptions  | pass as input for configuration | [httpOptions] ="yourOptions"
 httpOptions.size  | maximum size of search return (optional) | httpOptions.size = '20'
