@@ -17,6 +17,8 @@ export class AppEndpointSearchComponent implements OnChanges, OnInit {
   @Input() clearField;
   @Input() defaultValue;
   @Output() selectedHttpResult: EventEmitter<any> = new EventEmitter<any>();
+  @Output() emptyHttpResult: EventEmitter<any> = new EventEmitter<any>();
+
   searchText = '';
   tempSearchText = '';
   timer: any;
@@ -45,19 +47,20 @@ export class AppEndpointSearchComponent implements OnChanges, OnInit {
     this.timer = setTimeout(() => {
       this.searchText.trim();
       this._appEndpointSearchService.endpointSearch(this.httpOptions.path, this.searchText).subscribe((resultArray: any) => {
-        if (resultArray) {
           this.isActive = true;
           this.counter = -1;
-          if (this.httpOptions.formatString) {
-            resultArray.forEach((el, i) => {
-              let label = this.httpOptions.formatString;
-              Object.keys(el).forEach(k => { label = label.replace(k, resultArray[i][k] || '');
-              label = label.replace(/null/g, '');
-            });
-            this.results.push({ 'label': label, 'value': el });
-          });
-        }
+          if (resultArray.length > 0) {
+            if (this.httpOptions.formatString) {
+                resultArray.forEach((el, i) => {
+                let label = this.httpOptions.formatString;
+                Object.keys(el).forEach(k => { label = label.replace(k, resultArray[i][k] || '');
+                    label = label.replace(/null/g, '');
+                });
+                this.results.push({ 'label': label, 'value': el });
+                });
+            }
         } else {
+          this.emptyHttpResult.emit({'searchString': this.searchText });
           this.results.push({ 'label': 'No results' });
         }
       });
