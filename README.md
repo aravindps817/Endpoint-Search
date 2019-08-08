@@ -31,7 +31,7 @@ export class AppModule { }
 
 //** in your html file"
  <app-endpoint-search [httpOptions]="httpSearchOptions" [clearField]="clearField"[placeHolder]="'Search Principal Investigator'"
- (onSelect)="selectedPerson($event)" (onEmpty)="emptyResult($event)"></app-endpoint-search>
+ (onSelect)="selectedPerson($event)" [isError]="isError" (onEmpty)="emptyResult($event)"></app-endpoint-search>
 
 ##sample Object
 
@@ -43,6 +43,8 @@ export class AppModule { }
     httpOptions.width = '100%';
     httpOptions.fontSize = '12px';
     httpOptions.defaultValue = 'My search Text';
+    httpOptions.errorMessage = 'Please fill the following mandatory field';
+
 ```
 
 ## Parameters
@@ -51,6 +53,7 @@ Name  | Description | Example |
 (onSelect)  | On mouse click function and close button event | (onSelect)="yourFunction($event)"
 (onEmpty)  | returns search string on change event of no result condition | (onEmpty)="yourFunction($event)" 
 Placeholder  | placeholder for search box| [placeHolder]=" place holder values" 
+isError  |	Highlighting search field on setting true and default stage on setting false|	[isError]="isError"
 httpOptions  | pass as input for configuration | [httpOptions] ="yourOptions"
 httpOptions.size  | maximum size of search return (optional) | httpOptions.size = '20'
 httpOptions.path | select the api path | httpOptions.path = 'defaultpath'
@@ -60,6 +63,7 @@ httpOptions.theme | Custom color for the search output (optional) | httpOptions.
 httpOptions.fontSize  | Font size of search result (optional)  | httpOptions.fontSize = '20px'
 httpOptions.width  | Width  of search (optional) | httpOptions.width = '100%'
 httpOptions.defaultvalue  | A default value to be shown on search field (optional)  | httpOptions.defaultValue = 'Your Default value'
+httpOptions.errorMessage |To dispaly error message on isError condition true | httpOptions.errorMessage = "Please fill the following mandatory field"
 
 ## Other functionalities
 
