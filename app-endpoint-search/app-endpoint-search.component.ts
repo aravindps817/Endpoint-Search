@@ -1,7 +1,7 @@
 /**
  * A common http search component works on the basis of search string and endpoint
  */
-import { Component, Input, Output, EventEmitter, OnChanges, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, OnInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { AppEndpointSearchService } from './app-endpoint-search.service';
 
 @Component({
@@ -16,9 +16,10 @@ export class AppEndpointSearchComponent implements OnChanges, OnInit {
   @Input() placeHolder;
   @Input() clearField;
   @Input() defaultValue;
-  @Output() selectedHttpResult: EventEmitter<any> = new EventEmitter<any>();
-  @Output() emptyHttpResult: EventEmitter<any> = new EventEmitter<any>();
-
+  @Input()  isError;
+  @Output() onSelect: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onEmpty: EventEmitter<any> = new EventEmitter<any>();
+  @ViewChild('searchField') searchField: ElementRef;
   searchText = '';
   tempSearchText = '';
   timer: any;
@@ -37,6 +38,8 @@ export class AppEndpointSearchComponent implements OnChanges, OnInit {
       this.results = [];
     }
     this.searchText = this.httpOptions.defaultValue || '';
+    this.isError ? this.searchField.nativeElement.classList.add('is-invalid')
+                 : this.searchField.nativeElement.classList.remove('is-invalid');
   }
   /**
    * calls an API with respect user inputs (path and search string) and the result is formmatted in string of label
@@ -60,7 +63,7 @@ export class AppEndpointSearchComponent implements OnChanges, OnInit {
                 });
             }
         } else {
-          this.emptyHttpResult.emit({'searchString': this.searchText });
+          this.onEmpty.emit({'searchString': this.searchText });
           this.results.push({ 'label': 'No results' });
         }
       });
@@ -73,11 +76,13 @@ export class AppEndpointSearchComponent implements OnChanges, OnInit {
   emitSelectedObject(value) {
     this.counter = -1;
     if (value) {
-      this.selectedHttpResult.emit(value);
+      this.onSelect.emit(value);
       this.searchText = value[this.httpOptions.contextField] || this.searchText;
+      this.httpOptions.defaultValue =  this.searchText;
     } else {
       this.searchText = '';
-      this.selectedHttpResult.emit(null);
+      this.httpOptions.defaultValue = '';
+      this.onSelect.emit(null);
     }
     this.results = [];
     this.isActive = false;
